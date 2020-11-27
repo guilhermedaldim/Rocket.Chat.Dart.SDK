@@ -9,12 +9,19 @@ import 'package:enhanced_ddp/enhanced_ddp.dart' as ddp;
 import 'package:rocket_chat_dart/models/models.dart';
 
 part 'channels.dart';
+
 part 'emoji.dart';
+
 part 'events.dart';
+
 part 'messages.dart';
+
 part 'permissons.dart';
+
 part 'subscriptions.dart';
+
 part 'users.dart';
+
 part 'livechat.dart';
 
 abstract class _DdpClientWrapper {
@@ -59,8 +66,12 @@ class Client extends Object
   @override
   ddp.DdpClient _getDdpClient() => this._ddp;
 
-  void reconnect() {
-    this._ddp.reconnect();
+  void connect() async {
+    await this._ddp.connect();
+  }
+
+  void reconnect() async {
+    await this._ddp.reconnect();
   }
 
   void connectionAway() => this._ddp.call('UserPresence:away', []);

@@ -7,4 +7,6 @@ class UserCredentials {
   String email;
   String name;
   String password;
+
+  UserCredentials({this.email, this.password});
 }
