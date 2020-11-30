@@ -9,7 +9,7 @@ abstract class _ClientUsersMixin implements _ClientWrapper {
               'Content-Type': 'application/json',
             },
             body: json.encode(<String, String>{
-              'user': credentials.name,
+              'user': credentials.name ?? credentials.email,
               'password': credentials.password,
             }))
         .then((response) {
