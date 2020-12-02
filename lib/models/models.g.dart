@@ -17,10 +17,8 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) {
     ..sysMes = json['sysMes'] as bool
     ..isDefault = json['default'] as bool
     ..broadcast = json['broadcast'] as bool
-    ..timestamp = json['ts'] == null ? null : _fromJsonToDateTime(json['ts'])
-    ..updatedAt = json['_updatedAt'] == null
-        ? null
-        : _fromJsonToDateTime(json['_updatedAt'])
+    ..timestamp = _fromJsonToDateTime(json['ts'])
+    ..updatedAt = _fromJsonToDateTime(json['_updatedAt'])
     ..topic = json['topic'] as String
     ..user = json['u'] == null
         ? null
@@ -85,7 +83,7 @@ Map<String, dynamic> _$ChannelSubscriptionToJson(
       't': instance.type,
       'u': instance.user,
       'roles': instance.roles,
-      'unread': instance.unread
+      'unread': instance.unread,
     };
 
 Pagination _$PaginationFromJson(Map<String, dynamic> json) {
@@ -99,7 +97,7 @@ Map<String, dynamic> _$PaginationToJson(Pagination instance) =>
     <String, dynamic>{
       'count': instance.count,
       'offset': instance.offset,
-      'total': instance.total
+      'total': instance.total,
     };
 
 RoomMessageHistory _$RoomMessageHistoryFromJson(Map<String, dynamic> json) {
@@ -114,7 +112,7 @@ RoomMessageHistory _$RoomMessageHistoryFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$RoomMessageHistoryToJson(RoomMessageHistory instance) =>
     <String, dynamic>{
       'unreadNotLoaded': instance.unreadNotLoaded,
-      'messages': instance.messages
+      'messages': instance.messages,
     };
 
 Message _$MessageFromJson(Map<String, dynamic> json) {
@@ -127,13 +125,10 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
         ? null
         : User.fromJson(json['editedBy'] as Map<String, dynamic>)
     ..groupable = json['groupable'] as bool
-    ..editedAt =
-        json['editedAt'] == null ? null : _fromJsonToDateTime(json['editedAt'])
-    ..timestamp = json['ts'] == null ? null : _fromJsonToDateTime(json['ts'])
+    ..editedAt = _fromJsonToDateTime(json['editedAt'])
+    ..timestamp = _fromJsonToDateTime(json['ts'])
     ..type = json['t'] as String
-    ..updatedAt = json['_updatedAt'] == null
-        ? null
-        : _fromJsonToDateTime(json['_updatedAt'])
+    ..updatedAt = _fromJsonToDateTime(json['_updatedAt'])
     ..mentions = (json['mentions'] as List)
         ?.map(
             (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
@@ -148,20 +143,19 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
     ..postMessage = json['postMessage'] == null
         ? null
         : PostMessage.fromJson(json['postMessage'] as Map<String, dynamic>)
-    ..reactions = (json['reactions'] as Map<String, dynamic>)?.map((k, e) =>
-        MapEntry(
-            k,
-            e == null
-                ? null
-                : ReactionItem.fromJson(e as Map<String, dynamic>)));
+    ..reactions = (json['reactions'] as Map<String, dynamic>)?.map(
+      (k, e) => MapEntry(k,
+          e == null ? null : ReactionItem.fromJson(e as Map<String, dynamic>)),
+    )
+    ..drid = json['drid'] as String;
 }
 
 Map<String, dynamic> _$MessageToJson(Message instance) {
   final val = <String, dynamic>{
     '_id': instance.id,
     'rid': instance.roomId,
-    'msg': instance.msg,
     'token': instance.token,
+    'msg': instance.msg,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -181,6 +175,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) {
   writeNotNull('attachments', instance.attachments);
   writeNotNull('postMessage', instance.postMessage);
   writeNotNull('reactions', instance.reactions);
+  writeNotNull('drid', instance.drid);
   return val;
 }
 
@@ -191,7 +186,9 @@ ReactionItem _$ReactionItemFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ReactionItemToJson(ReactionItem instance) =>
-    <String, dynamic>{'usernames': instance.usernames};
+    <String, dynamic>{
+      'usernames': instance.usernames,
+    };
 
 PostMessage _$PostMessageFromJson(Map<String, dynamic> json) {
   return PostMessage()
@@ -232,7 +229,7 @@ Attachment _$AttachmentFromJson(Map<String, dynamic> json) {
   return Attachment()
     ..color = json['color'] as String
     ..text = json['text'] as String
-    ..timestamp = json['ts'] == null ? null : _fromJsonToDateTime(json['ts'])
+    ..timestamp = _fromJsonToDateTime(json['ts'])
     ..thumbUrl = json['thumb_url'] as String
     ..messageLink = json['message_link'] as String
     ..collapsed = json['collapsed'] as bool
@@ -291,7 +288,7 @@ Map<String, dynamic> _$AttachmentFieldToJson(AttachmentField instance) =>
     <String, dynamic>{
       'short': instance.short,
       'title': instance.title,
-      'value': instance.value
+      'value': instance.value,
     };
 
 User _$UserFromJson(Map<String, dynamic> json) {
@@ -310,5 +307,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'username': instance.userName,
       'status': instance.status,
       'token': instance.token,
-      'tokenExpires': instance.tokenExpires
+      'tokenExpires': instance.tokenExpires,
     };
