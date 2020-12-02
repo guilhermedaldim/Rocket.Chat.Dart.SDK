@@ -1,3 +1,5 @@
+import 'dart:io';
+
 part of rest;
 
 @JsonSerializable()

@@ -15,4 +15,6 @@ ChannelsResponse _$ChannelsResponseFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ChannelsResponseToJson(ChannelsResponse instance) =>
-    <String, dynamic>{'channels': instance.channels};
+    <String, dynamic>{
+      'channels': instance.channels,
+    };

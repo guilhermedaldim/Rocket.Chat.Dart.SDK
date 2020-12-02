@@ -17,4 +17,23 @@ abstract class _ClientRoomsMixin implements _ClientWrapper {
     }).catchError((error) => completer.completeError(error));
     return completer.future;
   }
+  Future<Channel> roomsInfo(String roomId) {
+    Completer<Channel> completer = Completer();
+    http
+        .get('${_getUrl()}/rooms.info?roomId=${roomId}',
+        headers: {
+          'X-User-Id': _auth._id,
+          'X-Auth-Token': _auth._token
+        })
+        .then((response) {
+      _hackResponseHeader(response);
+      if(response.statusCode == 200) {
+        completer
+            .complete(Channel.fromJson(json.decode(response.body)['room']));
+      } else {
+        completer.completeError(HttpException(response.reasonPhrase));
+      }
+    }).catchError((error) => completer.completeError(error));
+    return completer.future;
+  }
 }
