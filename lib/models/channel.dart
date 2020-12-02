@@ -50,6 +50,9 @@ class Channel {
   @JsonKey(name: 'lastMessage', includeIfNull: false)
   Message lastMessage;
 
+  @JsonKey(name: "usersCount", includeIfNull: true, defaultValue: 0)
+  int usersCount;
+
   factory Channel.fromJson(Map<String, dynamic> json) =>
       _$ChannelFromJson(json);
 
