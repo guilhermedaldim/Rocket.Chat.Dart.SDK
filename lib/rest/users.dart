@@ -49,4 +49,21 @@ abstract class _ClientUsersMixin implements _ClientWrapper {
     }).catchError((error) => completer.completeError(error));
     return completer.future;
   }
+
+  Future<void> setAvatar(File file) {
+    Completer<void> completer = Completer();
+    http.MultipartRequest('POST', Uri.parse('${_getUrl()}/users.setAvatar'))
+      ..headers['X-User-Id'] = _auth._id
+      ..headers['X-Auth-Token'] = _auth._token
+      ..files.add(http.MultipartFile.fromBytes('image', file.readAsBytesSync()))
+      ..send().then((response) {
+        if (response.statusCode == 200) {
+          completer.complete();
+        } else {
+          completer.completeError(
+              HttpException(response.reasonPhrase, uri: response.request.url));
+        }
+      }).catchError((error) => completer.completeError(error));
+    return completer.future;
+  }
 }
