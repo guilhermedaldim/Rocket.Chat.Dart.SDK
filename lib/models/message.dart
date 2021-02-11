@@ -67,6 +67,9 @@ class Message {
   @JsonKey(name: 'reactions', includeIfNull: false)
   Map<String, ReactionItem> reactions;
 
+  @JsonKey(name: 'drid', includeIfNull: false)
+  String drid;
+
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
 
