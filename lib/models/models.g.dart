@@ -27,7 +27,8 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['u'] as Map<String, dynamic>)
     ..lastMessage = json['lastMessage'] == null
         ? null
-        : Message.fromJson(json['lastMessage'] as Map<String, dynamic>);
+        : Message.fromJson(json['lastMessage'] as Map<String, dynamic>)
+    ..usersCount = json['usersCount'] as int ?? 0;
 }
 
 Map<String, dynamic> _$ChannelToJson(Channel instance) {
@@ -54,6 +55,7 @@ Map<String, dynamic> _$ChannelToJson(Channel instance) {
   val['topic'] = instance.topic;
   writeNotNull('u', instance.user);
   writeNotNull('lastMessage', instance.lastMessage);
+  val['usersCount'] = instance.usersCount;
   return val;
 }
 
